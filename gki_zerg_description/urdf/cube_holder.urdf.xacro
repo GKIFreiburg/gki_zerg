@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+  Added fixed parts to the base
+ -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <xacro:property name="material_wood">
+    <material name="wood_color">
+      <color rgba="0.5 0.36 0.25 1"/>
+    </material>
+  </xacro:property>
+  
+  <xacro:macro name="cube_holder" params="parent xyz rpy">  
+    <joint name="cube_holder_joint" type="fixed">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="cube_holder_link"/>
+    </joint>
+    <link name="cube_holder_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <mesh filename="package://gki_hardware_description/meshes/cube_holder.stl"/>
+        </geometry>
+        <xacro:insert_block name="material_wood"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <mesh filename="package://gki_hardware_description/meshes/cube_holder.stl"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.5"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                 iyy="0.0001" iyz="0.0"
+                 izz="0.0001"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+  The complete gki_zerg library of xacros for easy reference
+ -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find gki_zerg_description)/urdf/common_properties.urdf.xacro" />
+  <xacro:include filename="$(find gki_zerg_description)/urdf/item_bars.urdf.xacro" />
+  <xacro:include filename="$(find gki_zerg_description)/urdf/zerg_base.urdf.xacro" />
+  <xacro:include filename="$(find gki_zerg_description)/urdf/cube_holder.urdf.xacro" />
+</robot>

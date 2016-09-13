@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot name="zerg"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find gki_zerg_description)/urdf/zerg_library.urdf.xacro" />
+  
+  <xacro:include filename="$(find gki_sensors_description)/urdf/hokuyo_urg.urdf.xacro" />
+  <xacro:include filename="$(find gki_sensors_description)/urdf/axis215.urdf.xacro" />
+  <xacro:include filename="$(find gki_sensors_description)/urdf/logitech_c525_hd.urdf.xacro" />
+
+  <!-- 
+    All the components relative transforms are made with respect 
+    to the parent link (usually base_link). They could be made relative to each
+    other, but there is no necessary reason to do so.
+  -->
+	<xacro:macro name="sickrd_2014_parts" params="parent">
+		<item_bar_40_20 name="left_vertical_bar" parent="${parent}" length="0.435">
+			<origin xyz="0.0 0.1885 0.2585" rpy="0 ${90*M_DEGREE} ${90*M_DEGREE}"/>
+		</item_bar_40_20>
+		
+		<item_bar_40_20 name="right_vertical_bar" parent="${parent}" length="0.435">
+			<origin xyz="0.0 -0.1885 0.2585" rpy="0 ${90*M_DEGREE} ${90*M_DEGREE}"/>
+		</item_bar_40_20>
+		
+		<item_bar_40_20 name="left_top_bar" parent="${parent}" length="0.3">
+			<origin xyz="0.0475 0.1585 0.4" rpy="0 0 0"/>
+		</item_bar_40_20>
+		
+		<item_bar_40_20 name="right_top_bar" parent="${parent}" length="0.3">
+			<origin xyz="0.0475 -0.1585 0.4" rpy="0 0 0"/>
+		</item_bar_40_20>
+		
+		<item_bar_40_20 name="back_top_bar" parent="${parent}" length="0.357">
+			<origin xyz="-0.1275 0 0.405" rpy="0 0 ${90*M_DEGREE}"/>
+		</item_bar_40_20>
+		
+		<item_bar_20_20 name="front_bar" parent="${parent}" length="0.36">
+			<origin xyz="0.19 0.0 0.0625" rpy="0 0 ${90*M_DEGREE}"/>
+		</item_bar_20_20>
+		
+		<item_bar_40_20 name="front_tip_bar" parent="${parent}" length="0.065">
+			<origin xyz="0.23 0.0 0.0625" rpy="0 0 0"/>
+		</item_bar_40_20>
+	</xacro:macro>
+
+  <zerg_base/>
+  <sickrd_2014_parts parent="base_link"/>
+  <cube_holder parent="base_link" xyz="0.15 0.0 0.27" rpy="0 0 0"/>
+
+  <xacro:hokuyo_urg name="base_laser" parent="base_link" ros_topic="base_scan" update_rate="30" ray_count="1080" min_angle="135" max_angle="-135">
+    <origin xyz="0.12 0.0 0.138" rpy="0 0 0"/>
+  </xacro:hokuyo_urg>
+  <xacro:axis215 name="axis" parent="back_top_bar_link">
+    <origin xyz="0.0 0.0 0.01" rpy="0 0 0"/>
+  </xacro:axis215>
+  <xacro:logitech_c525_hd name="front_camera" parent="base_link" pan="0" tilt="${-15 * M_DEGREE}">
+    <origin xyz="0.225 0.0 0.1" rpy="0 0 0"/>
+  </xacro:logitech_c525_hd>
+<!--
+  <joint name="imu_joint" type="fixed">
+      <origin xyz="0.056 0.062 0.0202" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+  </joint>
+  <link name="imu_link">
+      <inertial>
+          <mass value="0.001"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <inertia ixx="0.0001" ixy="0" ixz="0" 
+              iyy="0.000001" iyz="0"
+              izz="0.0001"/>
+      </inertial>
+  </link>
+-->
+
+</robot>
