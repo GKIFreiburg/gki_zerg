@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<xacro:macro name="item_bar" params="name parent *origin length width height">
+		<joint name="${name}_joint" type="fixed">
+			<xacro:insert_block name="origin" />
+			<parent link="${parent}"/>
+			<child link="${name}_link"/>
+		</joint>  
+		<link name="${name}_link">
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<box size="${length} 0.02 0.02"/>
+				</geometry>
+				<xacro:insert_block name="material_light_gray" />
+			</visual>  
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<box size="${length} ${width} ${height}"/>
+				</geometry>
+			</visual>  
+		</link>
+	</xacro:macro>
+
+	<xacro:macro name="item_bar_20_20" params="name parent *origin length">
+		<item_bar name="${name}" parent="${parent}" length="${length}" width="0.02" height="0.02">
+			<xacro:insert_block name="origin" />
+		</item_bar>
+	</xacro:macro>
+	
+	<xacro:macro name="item_bar_40_20" params="name parent *origin length">
+		<item_bar name="${name}" parent="${parent}" length="${length}" width="0.04" height="0.02">
+			<xacro:insert_block name="origin" />
+		</item_bar>
+	</xacro:macro>
+  
+</robot>
