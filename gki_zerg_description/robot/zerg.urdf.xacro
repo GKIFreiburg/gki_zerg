@@ -8,6 +8,8 @@
   <xacro:include filename="$(find gki_zerg_description)/urdf/zerg_library.urdf.xacro" />
   
   <xacro:include filename="$(find gki_sensors_description)/urdf/hokuyo_urg.urdf.xacro" />
+  <xacro:include filename="$(find gki_sensors_description)/urdf/sick_rfu620.urdf.xacro" />
+  <xacro:include filename="$(find gki_cube_gripper_description)/urdf/cube_gripper.urdf.xacro" />
 
   <!-- 
     All the components relative transforms are made with respect 
@@ -16,43 +18,49 @@
   -->
 	<xacro:macro name="sickrd_2016_parts" params="parent">
 		<item_bar_40_20 name="left_vertical_bar" parent="${parent}" length="0.435">
-			<origin xyz="0.0 0.1885 0.2585" rpy="0 ${90*M_DEGREE} ${90*M_DEGREE}"/>
+			<origin xyz="0.0 0.1885 0.2585" rpy="0 ${90*M_DEGREES} ${90*M_DEGREES}"/>
 		</item_bar_40_20>
 		
 		<item_bar_40_20 name="right_vertical_bar" parent="${parent}" length="0.435">
-			<origin xyz="0.0 -0.1885 0.2585" rpy="0 ${90*M_DEGREE} ${90*M_DEGREE}"/>
+			<origin xyz="0.0 -0.1885 0.2585" rpy="0 ${90*M_DEGREES} ${90*M_DEGREES}"/>
 		</item_bar_40_20>
-		<!--		
 		<item_bar_40_20 name="left_top_bar" parent="${parent}" length="0.3">
-			<origin xyz="0.0475 0.1585 0.4" rpy="0 0 0"/>
+			<origin xyz="-0.055 0.1585 0.33" rpy="0 0 0"/>
 		</item_bar_40_20>
 		
 		<item_bar_40_20 name="right_top_bar" parent="${parent}" length="0.3">
-			<origin xyz="0.0475 -0.1585 0.4" rpy="0 0 0"/>
+			<origin xyz="-0.055 -0.1585 0.33" rpy="0 0 0"/>
 		</item_bar_40_20>
 		
 		<item_bar_40_20 name="back_top_bar" parent="${parent}" length="0.357">
-			<origin xyz="-0.1275 0 0.405" rpy="0 0 ${90*M_DEGREE}"/>
+			<origin xyz="-0.215 0 0.335" rpy="0 0 ${90*M_DEGREES}"/>
 		</item_bar_40_20>
 		
 		<item_bar_20_20 name="front_bar" parent="${parent}" length="0.36">
-			<origin xyz="0.19 0.0 0.0625" rpy="0 0 ${90*M_DEGREE}"/>
+			<origin xyz="0.19 0.0 0.0625" rpy="0 0 ${90*M_DEGREES}"/>
 		</item_bar_20_20>
 		
 		<item_bar_40_20 name="front_tip_bar" parent="${parent}" length="0.065">
 			<origin xyz="0.23 0.0 0.0625" rpy="0 0 0"/>
 		</item_bar_40_20>
-		-->
 	</xacro:macro>
 
   <zerg_base/>
 	<sickrd_2016_parts parent="base_link"/>
 	
   <xacro:hokuyo_urg name="base_laser" parent="base_link" ros_topic="base_scan" update_rate="30" ray_count="1080" min_angle="135" max_angle="-135">
-    <origin xyz="0.12 0.0 0.138" rpy="0 0 0"/>
+    <origin xyz="0.215 0.0 0.08" rpy="0 0 0"/>
   </xacro:hokuyo_urg>
 
-<!--
+	<xacro:sick_rfu620 name="rfid_sensor" parent="base_link" ros_topic="rfid_tag">
+		<origin xyz="-0.235 0.0 0.325" rpy="0 3.1415 0"/>
+	</xacro:sick_rfu620>
+	
+	<xacro:cube_gripper name="cube_gripper" parent="base_link">
+		<origin xyz="0.235 0.0 0.325" rpy="0 0 0"/>
+	</xacro:cube_gripper>
+	
+	<!--
   <joint name="imu_joint" type="fixed">
       <origin xyz="0.056 0.062 0.0202" rpy="0 0 0"/>
       <parent link="base_link"/>

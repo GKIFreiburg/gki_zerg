@@ -4,7 +4,7 @@
  -->
 <robot name="xacro_properties" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="M_PI" value="3.1415926535897931" /> 
-  <xacro:property name="M_DEGREE" value="${M_PI/180.0}" /> 
+  <xacro:property name="M_DEGREES" value="${M_PI/180.0}" /> 
 
   <xacro:property name="material_white">
     <material name="white">
