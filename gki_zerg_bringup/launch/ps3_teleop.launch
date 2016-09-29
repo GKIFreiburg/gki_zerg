@@ -8,7 +8,7 @@
     <param name="axis_angular" value="2"/>
     <param name="joystick_timeout" value="100.0"/>
 
-    <remap from="teleop_joystick/cmd_vel" to="cmd_vel_mux/input/teleop"/>
+    <remap from="teleop_joystick/cmd_vel" to="mobile_base/cmd_vel_mux/input/teleop"/>
   </node>
 
   <node pkg="gki_joystick_estop" type="gki_joystick_estop" name="gki_joystick_estop">
