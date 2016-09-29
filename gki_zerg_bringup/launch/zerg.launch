@@ -4,11 +4,14 @@
     <include file="$(find gki_zerg_bringup)/launch/minimal.launch">
       <arg name="robot_name" value="$(arg robot_name)" />
     </include>
-    <include file="$(find gki_zerg_bringup)/launch/zerg_motor_controller.launch" />
+
     <include file="$(find gki_zerg_bringup)/launch/laser.launch" />
   	<include file="$(find gki_zerg_bringup)/launch/scan_filter.launch" />
-<!--
+
+    <include file="$(find sick_rfu620)/launch/sick_rfu620.launch" />
+
     <include file="$(find gki_zerg_bringup)/launch/ps3_teleop.launch" />
+<!--
     <include file="$(find gki_zerg_bringup)/launch/3dsensor.launch">
         <arg name="scan_processing" value="false" />
         <arg name="depth_registration" value="false" />
