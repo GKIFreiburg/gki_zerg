@@ -1,0 +1,25 @@
+<launch>
+    <arg name="robot_name" default="zerg"/>
+
+    <include file="$(find gki_zerg_bringup)/launch/minimal.launch">
+      <arg name="robot_name" value="$(arg robot_name)" />
+    </include>
+
+    <include file="$(find gki_zerg_bringup)/launch/includes/_safety_controller.launch">
+        <arg name="turtlebot_has_buttons" value="$(arg turtlebot_has_buttons)"/>
+    </include>
+
+    <include file="$(find gki_zerg_bringup)/launch/ps3_teleop.launch" />
+
+    <include file="$(find gki_zerg_bringup)/launch/laser.launch" />
+  	<include file="$(find gki_zerg_bringup)/launch/scan_filter.launch" />
+    <include file="$(find gki_zerg_bringup)/launch/arduino_buttons.launch" />
+<!--
+    <include file="$(find gki_zerg_bringup)/launch/3dsensor.launch">
+        <arg name="scan_processing" value="false" />
+        <arg name="depth_registration" value="false" />
+    </include>
+    <include file="$(find gki_zerg_bringup)/launch/master_discovery.launch" />
+-->
+</launch>
+
