@@ -1,8 +1,7 @@
 <launch>
-  <node pkg="xsens_drivers" type="mtnode.py" name="xsens_imu" respawn="true">
+  <node pkg="xsens_driver" type="mtnode.py" name="xsens_imu" respawn="true">
     <param name="device" value="/dev/sensors/imu" />
     <param name="frame_id" type="string" value="base_imu_link" />
-    <param name="use_rep_117" value="true" />
   </node>
 </launch>
 

@@ -3,15 +3,15 @@
 
     <node name="dynamixel_manager" pkg="dynamixel_controllers" type="controller_manager.py" respawn="false" output="screen"/> 
  
-   <node name="grab_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+    <node name="grab_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
-                --port pan_tilt_port
+                --port cube_gripper_port
                 grab_controller"
           output="screen"/>
     
     <node name="lift_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
-                --port pan_tilt_port
+                --port cube_gripper_port
                 lift_controller"
           output="screen"/>
 
