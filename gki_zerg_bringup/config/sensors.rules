@@ -1,0 +1,19 @@
+
+# normal ftdis with product id 6001
+SUBSYSTEMS=="usb", KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="sensors/ftdi_%s{serial}", MODE="0666", GROUP="dialout"
+# xsens FTDIs with product id d38b
+SUBSYSTEMS=="usb", KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="d38b", SYMLINK+="sensors/ftdi_%s{serial}", MODE="0666", GROUP="dialout"
+
+# arduinos on ttyACM
+SUBSYSTEMS=="usb", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="003f", SYMLINK+="sensors/arduino_%s{serial}", SYMLINK+="sensors/arduino", MODE="0666", GROUP="dialout"
+SUBSYSTEMS=="usb", KERNEL=="ttyACM[0-9]*", ATTRS{idVendor}=="2a03", ATTRS{idProduct}=="0042", SYMLINK+="sensors/arduino_%s{serial}", SYMLINK+="sensors/arduino", MODE="0666", GROUP="dialout"
+
+# Hokuyos
+SUBSYSTEMS=="usb", KERNEL=="ttyACM[0-9]*", ATTRS{manufacturer}=="Hokuyo Data Flex for USB", ATTRS{product}=="URG-Series USB Driver", MODE="0666", GROUP="dialout", PROGRAM=="/etc/ros/run.sh hokuyo_node getID %N q", SYMLINK+="sensors/hokuyo_%c", SYMLINK+="sensors/laser"
+
+# sensoray usb4 video
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1943", ATTRS{idProduct}=="2255", MODE="0666"
+
+# pcmcia RS422 card
+SUBSYSTEMS=="pci", ATTRS{vendor}=="0x1217", ATTRS{device}=="0x7135", MODE="0666", RUN+="/bin/setserial /dev/$name baud_base 500000 uart 16654"
+

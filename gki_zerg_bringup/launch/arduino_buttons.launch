@@ -1,3 +1,0 @@
-<launch>
-    <node pkg="rosserial_python" type="serial_node.py" name="arduino_buttons" args="/dev/sensors/arduino" />
-</launch>

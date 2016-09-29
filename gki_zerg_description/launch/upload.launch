@@ -1,4 +1,4 @@
 <!-- send robot urdf to param server -->
 <launch>
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find gki_zerg_description)/robot/zerg.urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find gki_zerg_description)/robots/zerg.urdf.xacro'" />
 </launch>
