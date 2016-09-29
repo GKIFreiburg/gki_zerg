@@ -35,7 +35,6 @@ const float pidKD = 0 * pidKP * pidTu / 8;
 //Pins
 const int stopPin = 49;
 
-
 //Program
 //Cycletime of one loop
 int cycletime = 10;
@@ -117,7 +116,7 @@ void joyStopIn(const std_msgs::Bool& msg)
 }
 
 ros::Subscriber<geometry_msgs::Twist> sub("commands/velocity", cbf);
-ros::Subscriber<std_msgs::Bool> joysub ("commands/joystick_estop", joyStopIn);
+ros::Subscriber<std_msgs::Bool> joysub ("commands/estop", joyStopIn);
 
 void setup() {
   const int freqOutputPin = 10;
@@ -152,7 +151,7 @@ void setup() {
   errorI[RIGHT] = 0;
 
   timeout = millis();
-
+  stopJoy = true;
   stopFlag = true;
   
   //ros stuff
