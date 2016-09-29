@@ -1,6 +1,6 @@
 <launch>
 
-  <node pkg="gki_turtlebot_teleop" type="turtlebot_teleop_joy" name="turtlebot_teleop_joystick">
+  <node pkg="gki_teleop" type="teleop_joy" name="teleop_joystick">
     <param name="scale_angular" value="1.5"/>
     <param name="scale_linear" value="0.5"/>
     <param name="axis_deadman" value="10"/>
@@ -8,7 +8,7 @@
     <param name="axis_angular" value="2"/>
     <param name="joystick_timeout" value="100.0"/>
 
-    <remap from="turtlebot_teleop_joystick/cmd_vel" to="cmd_vel_mux/input/teleop"/>
+    <remap from="teleop_joystick/cmd_vel" to="cmd_vel_mux/input/teleop"/>
   </node>
 
   <node pkg="gki_joystick_estop" type="gki_joystick_estop" name="gki_joystick_estop">
