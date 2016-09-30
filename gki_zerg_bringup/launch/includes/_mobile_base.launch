@@ -4,15 +4,16 @@
 
 	<group ns="mobile_base">
 		<include file="$(find gki_zerg_bringup)/launch/zerg_motor_controller.launch" />
-		<include file="$(find gki_odometry)/launch/odometry.launch" />
-		<include
-			file="$(find gki_zerg_bringup)/launch/includes/_velocity_smoother.launch" />
+		<include file="$(find gki_zerg_bringup)/launch/includes/_odometry.launch"/>
 	
-		<node pkg="nodelet" type="nodelet" name="cmd_vel_mux"
-			args="load yocs_cmd_vel_mux/CmdVelMuxNodelet mobile_base_nodelet_manager">
-			<param name="yaml_cfg_file" value="$(find gki_zerg_bringup)/config/mux.yaml" />
-		</node>
 	</group>
+
+	<include
+		file="$(find gki_zerg_bringup)/launch/includes/_velocity_smoother.launch" />
+	<node pkg="nodelet" type="nodelet" name="cmd_vel_mux"
+		args="load yocs_cmd_vel_mux/CmdVelMuxNodelet mobile_base_nodelet_manager">
+		<param name="yaml_cfg_file" value="$(find gki_zerg_bringup)/config/mux.yaml" />
+	</node>
 
 	<include file="$(find gki_zerg_bringup)/launch/xsens_imu.launch" />
 
