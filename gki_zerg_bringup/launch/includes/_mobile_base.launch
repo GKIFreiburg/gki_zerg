@@ -5,6 +5,7 @@
 	<group ns="mobile_base">
 		<include file="$(find gki_zerg_bringup)/launch/zerg_motor_controller.launch" />
 		<include file="$(find gki_zerg_bringup)/launch/includes/_odometry.launch"/>
+		<include file="$(find gki_zerg_bringup)/launch/xsens_imu.launch" />
 	
 	</group>
 
@@ -15,11 +16,12 @@
 		<param name="yaml_cfg_file" value="$(find gki_zerg_bringup)/config/mux.yaml" />
 	</node>
 
-	<include file="$(find gki_zerg_bringup)/launch/xsens_imu.launch" />
 
+<!--
 	<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
 		<remap from="odom" to="mobile_base/odom" />
-		<remap from="robot_pose_ekf/odom" to="odom_combined" />
+		<remap from="imu_data" to="imu/data" />
+		<remap from="robot_pose_ekf/odom" to="/odom_combined" />
 		<param name="freq" value="10.0" />
 		<param name="sensor_timeout" value="1.0" />
 		<param name="odom_used" value="true" />
@@ -27,4 +29,5 @@
 		<param name="vo_used" value="false" />
 		<param name="output_frame" value="odom" />
 	</node>
+	-->
 </launch>

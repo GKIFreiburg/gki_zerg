@@ -10,5 +10,6 @@
 		<param name="ytheta_cov" value="0.0"/>
 
 		<remap from="velocity" to="sensors/wheelspeed"/>
+		<remap from="imu" to="imu/data"/>
 	</node>
 </launch>
