@@ -13,7 +13,7 @@ grab_controller:
         package: dynamixel_controllers
         module: joint_position_controller
         type: JointPositionController
-    joint_name: cube_gripper_right_finger_joint
+    joint_name: cube_gripper_grab_motor_joint
     joint_speed: 1.17
     motor:
         id: 1
@@ -26,7 +26,7 @@ lift_controller:
         package: dynamixel_controllers
         module: joint_position_controller_dual_motor
         type: JointPositionControllerDual
-    joint_name: cube_gripper_elbow_joint
+    joint_name: cube_gripper_lift_motor_joint
     joint_speed: 0.33
     motor_master:
         id: 3

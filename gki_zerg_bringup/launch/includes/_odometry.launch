@@ -1,6 +1,6 @@
 <launch>
 	<node pkg="gki_odometry" type="odometry_node" name="odometry" respawn="true">
-		<param name="base_frame" value="base_link"/>
+		<param name="base_frame" value="base_footprint"/>
 		<param name="odom_frame" value="odom"/>
 		<param name="x_stddev" value="0.002"/>
 		<param name="y_stddev" value="0.002"/>
