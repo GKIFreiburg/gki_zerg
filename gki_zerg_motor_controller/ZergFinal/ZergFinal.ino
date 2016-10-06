@@ -28,18 +28,18 @@ const float dist_pulse = perimeter / countsPerRot; //distance driven in one puls
 //SpeedRanges
 
 const float maxSpeed = 2.0;
-const float maxRad = 3.0;
+const float maxRad = 6.0;
 
 
 //PID Controller
 
 const long pidTu = 600;
-const float pidKP = 80;
-const float pidKI = 0.8 * pidKP / pidTu;
+const float pidKP = 100;
+const float pidKI = 1 * pidKP / pidTu;
 const float pidKD = 0 * pidKP * pidTu / 8;
 //Pins
 const int stopPin = 49;
-const int infraPin = 22;
+const int infraPin = 47;
 
 
 //Program
