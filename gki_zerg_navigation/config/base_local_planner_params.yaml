@@ -1,11 +1,11 @@
-controller_frequency: 10.0
+controller_frequency: 40.0
 TrajectoryPlannerROS:
-  max_vel_x: 0.35
-  min_vel_x: 0.10
-  max_rotational_vel: 1.0
-  min_in_place_rotational_vel: 0.7
-  acc_lim_theta: 0.55
-  acc_lim_x: 0.30
+  max_vel_x: 1.0
+  min_vel_x: 0.15
+  max_rotational_vel: 3.0
+  min_in_place_rotational_vel: 1.5
+  acc_lim_theta: 1.55
+  acc_lim_x: 1.00
   acc_lim_y: 0.00
 
   holonomic_robot: false

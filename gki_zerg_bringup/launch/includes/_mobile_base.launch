@@ -3,7 +3,7 @@
 		args="manager" />
 
 	<group ns="mobile_base">
-		<include file="$(find gki_zerg_bringup)/launch/zerg_motor_controller.launch" />
+		<include file="$(find gki_zerg_bringup)/launch/motor_controller.launch" />
 		<include file="$(find gki_zerg_bringup)/launch/includes/_odometry.launch"/>
 		<include file="$(find gki_zerg_bringup)/launch/xsens_imu.launch" />
 	

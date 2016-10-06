@@ -41,7 +41,7 @@
 			<origin xyz="0.19 0.0 0.0625" rpy="0 0 ${90*M_DEGREES}"/>
 		</item_bar_20_20>
 		
-		<item_bar_40_20 name="front_tip_bar" parent="${parent}" length="0.065">
+		<item_bar_40_20 name="front_tip_bar" parent="${parent}" length="0.15">
 			<origin xyz="0.23 0.0 0.0625" rpy="0 0 0"/>
 		</item_bar_40_20>
 
@@ -58,7 +58,7 @@
 	<sickrd_2016_parts parent="base_link"/>
 	
   <xacro:hokuyo_urg name="base_laser" parent="base_link" ros_topic="base_scan" update_rate="30" ray_count="1080" min_angle="135" max_angle="-135">
-    <origin xyz="0.215 0.0 0.08" rpy="0 0 0"/>
+    <origin xyz="0.275 0.0 0.08" rpy="0 0 0"/>
   </xacro:hokuyo_urg>
 
 	<xacro:sick_rfu620 name="rfid_sensor" parent="base_link" ros_topic="rfid_tag">

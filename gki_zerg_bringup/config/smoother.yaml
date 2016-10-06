@@ -4,17 +4,17 @@
 
 # Mandatory parameters
 speed_lim_v: 2.0
-speed_lim_w: 5.4
+speed_lim_w: 10.8 
 
-accel_lim_v: 1.0 # maximum is actually 2.0, but we push it down to be smooth
-accel_lim_w: 2.0
+accel_lim_v: 4.0 
+accel_lim_w: 8.0
 
 # Optional parameters
-frequency: 20.0
+frequency: 40.0
 decel_factor: 1.5
 
 # Robot velocity feedback type:
 #  0 - none (default)
 #  1 - odometry
 #  2 - end robot commands
-robot_feedback: 2
+robot_feedback: 0
