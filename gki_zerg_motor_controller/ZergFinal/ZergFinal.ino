@@ -5,7 +5,8 @@
 #include <OptEnc.h>
 #include <std_msgs/UInt8.h>
 #include <std_msgs/Bool.h>
-#include <geometry_msgs/TwistStamped.h>
+#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/PointStamped.h>
 
 
 #define LEFT 0
@@ -25,19 +26,23 @@ const float robotWidth = 0.4;
 const long countsPerRot = 7880; //counts per rotation
 const float dist_pulse = perimeter / countsPerRot; //distance driven in one pulse
 //SpeedRanges
+
 const float maxSpeed = 2.0;
-const float maxRad = 3.0;
+const float maxRad = 6.0;
+
+
 //PID Controller
+
 const long pidTu = 600;
-const float pidKP = 80;
-const float pidKI = 0.8 * pidKP / pidTu;
+const float pidKP = 100;
+const float pidKI = 1 * pidKP / pidTu;
 const float pidKD = 0 * pidKP * pidTu / 8;
 //Pins
 const int stopPin = 49;
+const int infraPin = 47;
+
 
 //Program
-//Cycletime of one loop
-int cycletime = 10;
 //Flags
 bool stopJoy;
 bool stopFlag;
@@ -49,7 +54,6 @@ float input_speed[2];
 
 //internal PID variables
 long pos_old[4];
-float speed_old[4];
 float errorI[2];
 float oldErrorD[2];
 
@@ -77,16 +81,19 @@ ros::NodeHandle nh;
 //publisher
 std_msgs::UInt8 progTime_msg;
 std_msgs::Bool stop_msg;
-geometry_msgs::TwistStamped speed_msg;
+std_msgs::Bool cube_in_msg;
+geometry_msgs::PointStamped speed_msg;
 ros::Publisher chatter("debug/prog_time", &progTime_msg);
 ros::Publisher chat2("sensors/wheelspeed", &speed_msg);
 ros::Publisher stopper("event/estop", &stop_msg);
+ros::Publisher cube_in("sensors/cube_in", &cube_in_msg);
+
 //subscriber
 void cbf(const geometry_msgs::Twist& msg)
 {
   if (stopFlag) {
-    input_speed[LEFT] = msg.linear.x * maxSpeed - (maxRad * 0.5 * msg.angular.z) * robotWidth;
-    input_speed[RIGHT] = msg.linear.x * maxSpeed + (maxRad * 0.5 * msg.angular.z) * robotWidth;
+    input_speed[LEFT] = msg.linear.x - (0.5 * msg.angular.z) * robotWidth;
+    input_speed[RIGHT] = msg.linear.x + (0.5 * msg.angular.z) * robotWidth;
     if (input_speed[LEFT] > maxSpeed) {
       input_speed[RIGHT] -= input_speed[LEFT] - maxSpeed;
       input_speed[LEFT] = maxSpeed;
@@ -125,6 +132,7 @@ void setup() {
   optenc.setupfrq();
 
   pinMode(stopPin, INPUT);
+  pinMode(infraPin, INPUT);
 
   optenc.mapPins(61, 60, 59, 58, 56);
   optenc.mapData(63, 69, 68, 67, 64, 65, 66, 62);
@@ -155,17 +163,20 @@ void setup() {
   stopFlag = true;
   
   //ros stuff
-  speed_msg.header.frame_id = "base_link";
+  // speed_msg.header.frame_id = "";
   
   nh.initNode();
   nh.advertise(chatter);
   nh.advertise(chat2);
   nh.advertise(stopper);
+  nh.advertise(cube_in);
   nh.subscribe(sub);
   nh.subscribe(joysub);
 }
 
 void loop() {
+  
+  // Check for stop signal, either external or by stopbutton
   if (digitalRead(stopPin)&&(stopJoy)) {
     stop_msg.data = true;
     stopFlag = true;
@@ -173,13 +184,26 @@ void loop() {
     stop_msg.data = false;
     stopFlag = false;
   }
+
+  // Check for timeout
   unsigned long t_start = millis();
   if (timeout + 500 < t_start) {
     input_speed[RIGHT] = 0;
     input_speed[LEFT] = 0;
   }
+
+  //Check infrared Sensor
+  if (digitalRead(infraPin)) {
+    cube_in_msg.data = false;
+  } else {
+    cube_in_msg.data = true;
+  }
+  
+  //Read out decoders
   optenc.getOdo();
+  //Calculate Speed
   measureSpeed();
+  //Calculate error and control signal for each side
   for (int i = 0; i < 2; i++) {
     float errorterm  = input_speed[i] - speed_measure[i];
     pid pidR;
@@ -202,25 +226,32 @@ void loop() {
       }
     }
   }
+  //Update Motor
   motR.updat(pwm_speed[RIGHT]);
   motL.updat(pwm_speed[LEFT]);
-  speed_msg.twist.linear.x = (speed_measure[RIGHT] + speed_measure[LEFT]) / 2;
-  speed_msg.twist.angular.z = (speed_measure[RIGHT] - speed_measure[LEFT]) / robotWidth;
+  
+  //Ros Part
+  
+  speed_msg.point.x = (speed_measure[RIGHT] + speed_measure[LEFT]) / 2;
+  speed_msg.point.z = (speed_measure[RIGHT] - speed_measure[LEFT]) / robotWidth;
   speed_msg.header.stamp = nh.now();
+  
   chat2.publish( &speed_msg );
   stopper.publish( &stop_msg );
+  cube_in.publish( &cube_in_msg );
   progTime_msg.data = t_loop;
   chatter.publish( &progTime_msg );
   nh.spinOnce();
+
+  //Loop timing stuff
   t_loop = millis() - t_start;
-  if (t_loop < cycletime) delay (cycletime - t_loop);
 }
+
 
 float updateSpeed(int index, long pos) {
   float dist_drive = dist_pulse * (pos - pos_old[index]);
   pos_old[index] = pos;
-  float out = dist_drive / cycletime * 1000;
-  speed_old[index] = out;
+  float out = dist_drive / t_loop * 1000;
   return out;
 }
 
@@ -229,14 +260,14 @@ float getP(float error, float kp) {
 }
 
 float getI(bool right, float error, float ki) {
-  errorI[right] += error * cycletime * ki;
+  errorI[right] += error * t_loop * ki;
   return errorI[right];
 }
 
 float getD(bool right, float error, float kd) {
   float dError =  error - oldErrorD[right];
   oldErrorD[right] = error;
-  return kd * dError / cycletime;
+  return kd * dError / t_loop;
 }
 
 void measureSpeed() {

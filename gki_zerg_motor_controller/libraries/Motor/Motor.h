@@ -4,7 +4,7 @@
 class Motor {
   public:
     // Constants
-    const int maxPWM = 200;
+    const int maxPWM = 255;
     const int minPWM = 8;
     //Pins that are controlled
     int speedpin;
