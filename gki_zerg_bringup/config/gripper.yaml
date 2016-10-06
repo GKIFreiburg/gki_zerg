@@ -1,8 +1,8 @@
 dynamixel_manager:
     namespace: dxl_manager
     serial_ports:
-        pan_tilt_port:
-            port_name: "/dev/ttyUSB0"
+        cube_gripper_port:
+            port_name: "/dev/sensors/serial_port"
             baud_rate: 1000000
             min_motor_id: 1
             max_motor_id: 25
@@ -13,21 +13,20 @@ grab_controller:
         package: dynamixel_controllers
         module: joint_position_controller
         type: JointPositionController
-    joint_name: grab_joint
+    joint_name: cube_gripper_grab_motor_joint
     joint_speed: 1.17
     motor:
         id: 1
         init: 512
         min: 0
         max: 1023
-        
-        
+
 lift_controller:
     controller:
         package: dynamixel_controllers
         module: joint_position_controller_dual_motor
         type: JointPositionControllerDual
-    joint_name: lift_joint
+    joint_name: cube_gripper_lift_motor_joint
     joint_speed: 0.33
     motor_master:
         id: 3

@@ -82,6 +82,26 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        cube_gripper_arm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        cube_gripper_left_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        cube_gripper_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        cube_gripper_right_finger_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         front_bar_link:
           Alpha: 1
           Show Axes: false
@@ -98,6 +118,15 @@ Visualization Manager:
           Show Trail: false
           Value: true
         left_vertical_bar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rfid_sensor_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        rfid_sensor_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -176,7 +205,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.48347
+      Distance: 1.73069
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -188,10 +217,10 @@ Visualization Manager:
         Z: -4.00441e-08
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.334799
+      Pitch: 0.639799
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 0.785424
+      Yaw: 0.965424
     Saved: ~
 Window Geometry:
   Displays:
@@ -209,5 +238,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 959
-  X: 950
+  X: 941
   Y: 19

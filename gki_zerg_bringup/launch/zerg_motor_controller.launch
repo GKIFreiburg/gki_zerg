@@ -1,3 +1,4 @@
 <launch>
-    <node ns="mobile_base" pkg="rosserial_python" type="serial_node.py" name="zerg_motor_controller" args="/dev/sensors/arduino" respawn="true"/>
+    <node pkg="rosserial_python" type="serial_node.py" name="zerg_motor_controller"
+	args="/dev/sensors/arduino" respawn="true"/>
 </launch>
