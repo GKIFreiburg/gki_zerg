@@ -27,7 +27,7 @@ lift_controller:
         module: joint_position_controller_dual_motor
         type: JointPositionControllerDual
     joint_name: cube_gripper_lift_motor_joint
-    joint_speed: 0.33
+    joint_speed: 0.6
     motor_master:
         id: 3
         init: 512
